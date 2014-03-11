@@ -1,0 +1,34 @@
+
+<User <%= @name %>>
+   <% if @password != '' %>Pass = %PASSWORD%<% else %>Pass = ''<% end %>
+   Admin = <%= @admin %>
+   Nick = <%= @nick %>
+   AltNick = <%= @alt_nick %>
+   Ident = <%= @ident %>
+   RealName = <%= @real_name %>
+   QuitMsg = '<%= @quit_message %>'
+   Buffer = <%= @history_length %>
+   KeepBuffer = <%= @keep_history %>
+   ChanModes = <%= @default_modes %>
+   MultiClients = <%= @multiple_clients %>
+
+<% @modules.each do |mod| -%>
+   LoadModule = <%= mod %>
+<% end -%>
+
+   Server = <%= @irc_host %> <% if @use_ssl -%>+<% end -%><%= @irc_port %> <%= @irc_password %>
+
+<% @channels.each do |channel| -%>
+   <%- if not channel["name"] %>
+   <Chan <%= channel %>>
+   <%- else -%>
+   <Chan <%= channel["name"] %>>
+      <% if channel["key"] %>Key = <%= channel["key"] %><% end %>
+      <% if channel["modes"] %>Modes = <%= channel["modes"] %><% end %>
+      <% if channel["buffer"] %>Buffer = <%= channel["buffer"] %><% end %>
+      <% if channel["keep_history"] %>KeepBuffer = <%= channel["keep_history"] %><% end %>
+      <% if channel["detached"] %>Detached = <%= channel["detached"] %> <% end %>
+   <%- end -%>
+   </Chan>
+<% end -%>
+</User>

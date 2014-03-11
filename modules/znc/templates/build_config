@@ -1,0 +1,9 @@
+#!/bin/sh
+
+CONFIG_DIR=${1:-<%= @config_location %>}
+OUTPUT_FILE=${2:-<%= @config_location %>/znc.conf}
+TMP_FILE=/tmp/znc.conf
+
+rm $OUTPUT_FILE
+cat $CONFIG_DIR/*.conf >> $TMP_FILE
+mv $TMP_FILE $OUTPUT_FILE

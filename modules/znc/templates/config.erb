@@ -1,0 +1,5 @@
+Listener = <% if @use_ssl %>+<% end %><%= @port %>
+<% @modules.each do |mod| -%>
+LoadModule = <%= mod %>
+<% end -%>
+

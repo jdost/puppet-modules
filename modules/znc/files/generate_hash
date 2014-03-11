@@ -1,0 +1,7 @@
+#!/bin/sh
+
+SALT="$(dd if=/dev/urandom bs=16c count=1 | md5sum | awk '{print $1}')"
+PASSWORD="sha256#$(echo -n $2$SALT | sha256sum | awk '{print $1}')#$SALT#"
+
+sed -i.tmp s/%PASSWORD%/$PASSWORD/ $1
+rm $1.tmp
